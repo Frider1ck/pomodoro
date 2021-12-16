@@ -17,10 +17,25 @@ function App() {
   function startTimer() {
     setTitele('just do it !')
     intervalRef.current = setInterval( () => {
-      if (timeLeft >= 1) return setTimeLeft(timeLeft => timeLeft - 1);
-
-      resetTimer();       
+      setTimeLeft(timeLeft => {
+        if (timeLeft >= 1) return  timeLeft - 1;
+        rest();  
+      return 0; 
+      })    
     },1000)
+  }
+
+  function rest() {
+    clearInterval(intervalRef.current);
+    setTimeLeft(5*60);
+    intervalRef.current = setInterval( () => {
+      setTimeLeft(timeLeft => {
+        if (timeLeft >= 1) return  timeLeft - 1;
+        resetTimer();  
+      return 0; 
+      })    
+    },1000)
+    setTitele('rest time')
   }
 
   function stopTimer() {
